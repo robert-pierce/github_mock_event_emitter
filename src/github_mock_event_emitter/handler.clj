@@ -14,15 +14,10 @@
          type (get body "type")
          user (get body "user")
          repo (get  body "repository")]
-     (println (str "The body is " request))
-     (event/send-mock-event type user repo)
-     {:status 200 :body "Event Sent"})
+     (event/send-mock-event type user repo))
+   {:status 200 :body "Event Sent"}
    (catch Exception e
-     {:status 500 :body "There was a server error"})
-   (catch #((and (>= 400 (:status %))) (< 500 (:status %)))
-       {:status 500 :body "The http call to send the request returned some 4xx status"})
-   (catch #((and (>= 500 (:status %))) (< 600 (:status %)))
-       {:status 500 :body "The http call to send the request returned some 5xx status"})))
+     {:status 500 :body "There was a server error"})))
 
 
 (defn simulate-activity-handler
