@@ -6,7 +6,6 @@
             [github-mock-event-emitter.events :as event])
   (:use [slingshot.slingshot :only [throw+ try+]]))
 
-
 (defn send-mock-event-handler
   "Handles a send-mock-event request"
   [request]
@@ -25,6 +24,21 @@
    (catch #((and (>= 500 (:status %))) (< 600 (:status %)))
        {:status 500 :body "The http call to send the request returned some 5xx status"})))
 
+
+(defn simulate-activity-handler
+  "Handles a simulate-activity request"
+  [request]
+  (try  
+    (let [body (:body request)
+          num-events  (get body "number_of_events")
+          types (get body "types")
+          users (get body "users")
+          repos (get  body "repositories")]
+      (event/simulate-activity num-events types users repos)
+      {:status 200})
+    (catch Exception e
+      {:status 500 :body (str "There was a server error" e)})))
+
 (defn health-check
   "A health check endpoint that will also print the git hash"
   []
@@ -32,6 +46,7 @@
 
 (defroutes app-routes
   (POST "/event" request (send-mock-event-handler request))
+  (POST "/simulator" request (simulate-activity-handler request))
   (ANY "/health_check" [] (health-check))
   (route/not-found "Not Found"))
 

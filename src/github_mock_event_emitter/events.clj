@@ -30,10 +30,27 @@
                     :content-type :json
                     :socket-timeout 1000  ;; in milliseconds
                     :conn-timeout 1000    ;; in milliseconds
-                    :accept :json
-                    :debug true
-                    :debug-body true
-                    :save-request? true}))
+                    :accept :json}))
     (catch Exception e
       (log :warn (str "There was an exception in send-mock-event. Exception " e))
       (throw e))))
+
+(defn simulate-activity-recur
+  [num-events types users repos]
+  (loop [x num-events]
+    (when (> x 0)
+      (let [type (rand-nth types)
+            user (rand-nth users)
+            repo (rand-nth repos)]
+        (send-mock-event type user repo))
+      (recur (- x 1)))))
+
+(defn simulate-activity
+  "This function will take in information to simulate many requests. 
+  This will simulate activity on some repositories. Helpful for initializing 
+  an empty database with data to test."
+  [num-events types users repos]
+  (try
+    (simulate-activity-recur num-events types users repos)
+    (catch Exception e
+      (log :warn (str "There was an exceptin in simulate-activity. Exeption " e)))))
