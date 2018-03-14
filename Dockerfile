@@ -14,5 +14,5 @@ CMD ["java", "-jar", "app-standalone.jar"]
 # Then we inject the jar into a much smaller base image:
 FROM anapsix/alpine-java
 COPY --from=builder /usr/src/app/app-standalone.jar app-standalone.jar
-EXPOSE 8000
+EXPOSE 8010
 CMD ["java", "-jar", "app-standalone.jar"]
