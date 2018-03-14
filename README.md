@@ -1,12 +1,14 @@
 # github_mock_event_emitter
 
-The github_mock_event_emitter is a simple service that is intended to be used in conjunction with the [github-scoring-service](https://github.com/robert-pierce/github_scoring_service). 
+The github_mock_event_emitter is a simple service that is intended to be used in conjunction with the 
 
-The intention of the service is to act as a means of testing the github-scoring-service by serving as a source of events to be consumbed by the scoring-service. 
+[github-scoring-service](https://github.com/robert-pierce/github_scoring_service). 
+
+The intention of the service is to act as a means of testing the github-scoring-service by serving as a source of events to be consumed by the scoring-service. 
 
 The github_mock_event_emitter is a simple http server that listens for certain requests. 
 
-When receiving a request the service will send another http request to the scoring-service in a format it expects. 
+When receiving a correct request the service will send another http request to the scoring-service in a format it expects. 
 
 Thus, by utilizing this service you can populate the database for the github-scoring-service without having to be plugged into live github webhooks.
 
