@@ -1,39 +1,37 @@
 # Github Mock Event Emitter
 
-The github_mock_event_emitter is a simple service that is intended to be used in conjunction with the 
+The github_mock_event_emitter is a simple service that is intended to be used in conjunction with the [Github Scoring Service](https://github.com/robert-pierce/github_scoring_service). 
 
-[github-scoring-service](https://github.com/robert-pierce/github_scoring_service). 
+The intention of the Github Mock Event Emitter service is to act as a means of testing the Github Scoring Service by serving as a source of events to be consumed by the scoring service. 
 
-The intention of the service is to act as a means of testing the github-scoring-service by serving as a source of events to be consumed by the scoring-service. 
+The Github Mock Event Emitter is a simple http server that listens for certain requests. 
 
-The github_mock_event_emitter is a simple http server that listens for certain requests. 
+When receiving a correct request the service will send another http request to the scoring service in a format it expects. 
 
-When receiving a correct request the service will send another http request to the scoring-service in a format it expects. 
-
-Thus, by utilizing this service you can populate the database for the github-scoring-service without having to be plugged into live github webhooks.
+Thus, by utilizing this service you can populate the database for the Github Scoring Service without having to be plugged into live github webhooks.
 
 ***
 ## Running
 This service is intended to be run in conjunction with the [github-scoring-service](https://github.com/robert-pierce/github_scoring_service). See the documentation for the [github-scoring-service](https://github.com/robert-pierce/github_scoring_service) for more information on running the service in this fashion.
 
-
+***
 If you would like to compile this source code directly then you will need [Leiningen][] 2.0.0 or above installed.
 
 [leiningen]: https://github.com/technomancy/leiningen
 
 To start a web server for the application, run:
 
-    lein ring server-headless
+>`lein ring server-headless`
 
 The app should start up on port 8010
 
 ### Environment
 The service only needs one environment variable in order to function:
     
-    SCORING-SERVICE-URL=
+>`SCORING-SERVICE-URL=`
     
-which, as the name suggests, is the URL to the github_scoring_service that this service will push events too via HTTP.
-If you run this service in conjunction with the github_scoring_service, as intended, then you will not need to worry about setting the environment because the docker command will handle that for us.
+which, as the name suggests, is the URL to the Github Scoring Service that this service will push events to via HTTP.
+If you run this service in conjunction with the Github Scoring Service, as intended, then you will not need to worry about setting the environment because the docker command will handle that for us.
 
 If you wish to run the service as a stand alone application then you can set the environment in your profiles.clj if compiling with Leiningen.
 
@@ -55,7 +53,7 @@ There are two ways of interacting with the github_mock_event_emitter.
           "repository": "<some-repository-name>"
        }
     ```
- 
+*** 
 2. **You can trigger a batch of events to be pushed to the github_scoring_service with one request**
     
     It can be a real pain to have to trigger enough event manually using the `/event` endpoint. 
@@ -78,4 +76,4 @@ There are two ways of interacting with the github_mock_event_emitter.
     
     The total number of events is equal to the value passed in the POST body for the _number_of_events_ key. 
     
-    For each event an event-type, user, and repository are selected at random from the entries in JSON arrays passed in the POST body for the respective entries.
+    For each event an event-type, user, and repository are selected at random from the entries in JSON arrays passed in the **POST** body for the respective entries.
