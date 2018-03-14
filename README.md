@@ -65,9 +65,9 @@ There are two ways of interacting with the github_mock_event_emitter.
      with a JSON POST body of the following form:
      ```json
        {
-          "number_of_events": <some-integer>,
+          "number_of_events": 42,
           "types": ["<some-event-type-name>", "<some-other-event-type-name>", ...],
-          "users": ["<some-user-name>", "<some-other-user-name>", ...],
+          "users": ["<some-user-name>", "<some-other-user-name>", ... ],
           "repositories": ["<some-repository-name>", "<some-other-repository-name>", ...]
        }
     ```
