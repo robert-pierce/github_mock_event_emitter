@@ -1,4 +1,4 @@
-# github_mock_event_emitter
+# Github Mock Event Emitter
 
 The github_mock_event_emitter is a simple service that is intended to be used in conjunction with the 
 
