@@ -1,6 +1,6 @@
 # Github Mock Event Emitter
 
-The github_mock_event_emitter is a simple service that is intended to be used in conjunction with the [Github Scoring Service](https://github.com/robert-pierce/github_scoring_service). 
+The Github Mock Event Emitter is a simple service that is intended to be used in conjunction with the [Github Scoring Service](https://github.com/robert-pierce/github_scoring_service). 
 
 The intention of the Github Mock Event Emitter service is to act as a means of testing the Github Scoring Service by serving as a source of events to be consumed by the scoring service. 
 
@@ -12,7 +12,7 @@ Thus, by utilizing this service you can populate the database for the Github Sco
 
 ***
 ## Running
-This service is intended to be run in conjunction with the [github-scoring-service](https://github.com/robert-pierce/github_scoring_service). See the documentation for the [github-scoring-service](https://github.com/robert-pierce/github_scoring_service) for more information on running the service in this fashion.
+This service is intended to be run in conjunction with the [Github Scoring Service](https://github.com/robert-pierce/github_scoring_service). See the documentation for the [Github Scoring Service](https://github.com/robert-pierce/github_scoring_service) for more information on running the service in this fashion.
 
 ***
 If you would like to compile this source code directly then you will need [Leiningen][] 2.0.0 or above installed.
@@ -30,16 +30,18 @@ The service only needs one environment variable in order to function:
     
 >`SCORING-SERVICE-URL=`
     
-which, as the name suggests, is the URL to the Github Scoring Service that this service will push events to via HTTP.
-If you run this service in conjunction with the Github Scoring Service, as intended, then you will not need to worry about setting the environment because the docker command will handle that for us.
+which, as the name suggests, is the URL to the Github Scoring Service that this service will push events to via http.
 
-If you wish to run the service as a stand alone application then you can set the environment in your profiles.clj if compiling with Leiningen.
+
+If you run this service in conjunction with the Github Scoring Service, as intended, then you will not need to worry about setting the environment because the docker build process will handle that for us.
+
+If you wish to run the service as a stand alone application then you can set the environment in your `profiles.clj`.
 
 ***
 ## API
-There are two ways of interacting with the github_mock_event_emitter.
+There are two ways of interacting with the Github Mock Event Emitter.
 
-1. **You can trigger individual events to be push to the github_scoring_service**
+1. **You can trigger individual events to be pushed to the Github Scoring Service**
   
     To trigger individual events you need to send a **POST** request to the following endpoint:
      
@@ -54,9 +56,9 @@ There are two ways of interacting with the github_mock_event_emitter.
        }
     ```
 *** 
-2. **You can trigger a batch of events to be pushed to the github_scoring_service with one request**
+2. **You can trigger a batch of events to be pushed to the Github Scoring Service with one request**
     
-    It can be a real pain to have to trigger enough event manually using the `/event` endpoint. 
+    It can be a real pain to have to trigger enough events manually using the `/event` endpoint. 
     
     To trigger many events at once you need to send a **POST** request to the following endpoint:
      
@@ -72,8 +74,8 @@ There are two ways of interacting with the github_mock_event_emitter.
        }
     ```
     
-    This will cause a number of events to be pushed to the github_scoring_service. 
+    This will cause a number of events to be pushed to the Github Scoring Service. 
     
-    The total number of events is equal to the value passed in the POST body for the _number_of_events_ key. 
+    The total number of events is equal to the value passed in the **POST** body for the _number_of_events_ key. 
     
     For each event an event-type, user, and repository are selected at random from the entries in JSON arrays passed in the **POST** body for the respective entries.
